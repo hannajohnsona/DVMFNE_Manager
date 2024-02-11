@@ -9,6 +9,7 @@
 
 const TelegramBot = require('node-telegram-bot-api');
 const FneCommunications = require('./FneCommunications');
+const stats = require('./FneCommunications');
 const {EmbedBuilder} = require("discord.js");
 
 const netConnectionStatus = Object.freeze({
@@ -54,9 +55,7 @@ class TelegramBotManager {
                         this.logger.error(e, 'TELEGRAM BOT');
                     });
             } else if (messageText === '/stats') {
-                let fneCommunications = new FneCommunications(this.server, this.logger);
-                let peerResponse = await fneCommunications.getFnePeerList();
-                let affResponse = await fneCommunications.getFneAffiliationList();
+                var stats = new stats();
 
                 if (!peerResponse || !affResponse) {
                     this.bot.sendMessage(chatId, `Error getting peer or aff list`)

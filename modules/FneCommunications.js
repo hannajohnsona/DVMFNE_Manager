@@ -16,7 +16,6 @@ class FneCommunications {
         this.logger = logger;
         this.restClient = new RESTClient(server.Rest.address, server.Rest.port, server.Rest.password, false, this.logger);
     }
-
     async getRidAcl() {
         try {
             const response = await this.restClient.send('GET', '/rid/query', null);
@@ -149,6 +148,12 @@ class FneCommunications {
             });
         });
     }
+    stats(){
+         let fneCommunications = new FneCommunications(this.server, this.logger);
+         let peerResponse = await fneCommunications.getFnePeerList();
+         let affResponse = await fneCommunications.getFneAffiliationList();
+    }
 }
 
 module.exports = FneCommunications;
+module.exports = stats;

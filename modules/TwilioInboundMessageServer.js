@@ -11,6 +11,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { MessagingResponse } = require('twilio').twiml;
 const FneCommunications = require('./FneCommunications');
+const stats = require('./FneCommunicataitons')
 
 class TwilioInboundMessageServer {
     constructor(logger, server) {
@@ -27,8 +28,7 @@ class TwilioInboundMessageServer {
             let affiliationCount = 0;
 
             if (req.body.Body === 'STATS') {
-                let peerResponse = await fneCommunications.getFnePeerList();
-                let affResponse = await fneCommunications.getFneAffiliationList();
+                var stats = new stats();
 
                 affResponse.affiliations.forEach(peer => {
                     peer.affiliations.forEach(affiliation => {
